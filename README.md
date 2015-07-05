@@ -17,7 +17,7 @@ As a dependency in your project's composer.json
 ```json
 {
     "require": {
-        "dnetix/mercadopago": "1.*"
+        "dnetix/mercadopago": "0.8.*"
     }
 }
 ```
