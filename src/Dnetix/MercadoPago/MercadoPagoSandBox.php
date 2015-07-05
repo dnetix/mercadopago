@@ -21,7 +21,7 @@ class MercadoPagoSandBox extends MercadoPago {
      * @param string $siteId
      * @return array
      */
-    public function getTestUser($siteId = 'MCO') {
+    public function createTestUser($siteId = 'MCO') {
         // Obtain access token
         $result = CurlClient::post(self::API_URL.'/oauth/token', [
             'grant_type' => 'client_credentials',
@@ -39,25 +39,6 @@ class MercadoPagoSandBox extends MercadoPago {
         ]);
 
         return $result['response'];
-    }
-
-    public function createPreApprovalPayment($accessToken = null){
-        if(sizeof($this->items()) == 0){
-            throw new Exception("No se han asignado items para la preferencia");
-        }
-        if(is_null($accessToken)){
-            if(!$this->accessToken()){
-                throw new Exception("No se ha asignado un Access Token");
-            }
-            $accessToken = $this->accessToken();
-        }
-        $return = CurlClient::post(CurlClient::buildQuery(self::API_URL.'/preapproval', [
-            'access_token' => $accessToken
-        ]), [
-            'items' => $this->items(),
-            'marketplace_fee' => $this->fee()
-        ]);
-        return $return['response'];
     }
 
     public static function load($config = []) {

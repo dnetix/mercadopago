@@ -24,7 +24,7 @@ class MerchantOrder {
     protected $shipments;
     protected $external_reference;
     protected $additional_info;
-    protected $notfication_url;
+    protected $notification_url;
     protected $total_amount;
 
     public function __construct($data) {
@@ -117,8 +117,18 @@ class MerchantOrder {
         return $this->payments;
     }
 
+    /**
+     * Information about the payer
+     * @return Person
+     */
     public function payer() {
         return new Person($this->payer);
     }
+
+    public function notificationUrl() {
+        return $this->notification_url;
+    }
+
+
 
 }

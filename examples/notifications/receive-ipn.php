@@ -14,15 +14,15 @@ $mercadoPago = MercadoPago::load($config);
 try {
     $merchantOrder = $mercadoPago->getMerchantOrderIPN($_POST);
     if(is_null($merchantOrder)){
-        // It's really not a reponse from MercadoPago do more security stuff
+        // It's really not a response from MercadoPago do more security stuff
     }
 
-    // At this point, a reponse has been obtain. So you can check for your internal invoice data with the
+    // At this point, a response has been obtain. So you can check for your internal invoice data with the
     // externalReference if you use it.
     $externalReference = $merchantOrder->externalReference();
 
     if($merchantOrder->isPayed()){
-        // The amount has been payed. if mathes the amount of your internal invoice you can release your items
+        // The amount has been payed. if matches the amount of your internal invoice you can release your items
 
         // Check if the amount it's accurate, the following method return how much it's been charged in MercadoPago
         // DO NOT represent how much has been approved

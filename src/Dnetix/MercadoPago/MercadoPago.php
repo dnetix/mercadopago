@@ -46,7 +46,7 @@ class MercadoPago {
         }
         foreach($requiredProperties as $requiredProperty){
             if(is_null($this->$requiredProperty)){
-                throw new Exception("No se ha asignado un valor para la propiedad ".$requiredProperty);
+                throw new Exception("The value for the required property {$requiredProperty} has not been provided on the construction");
             }
         }
     }
@@ -93,7 +93,7 @@ class MercadoPago {
      */
     public function obtainAccessToken($additionalData = []) {
         if(is_null($this->authorizationCode())){
-            throw new Exception("No se ha obtenido un codigo de autorizacion.");
+            throw new Exception("An authorization code has not been provided");
         }
         if(isset($additionalData['code'])){
             unset($additionalData['code']);
@@ -155,7 +155,7 @@ class MercadoPago {
         ];
         foreach($requiredProperties as $requiredProperty){
             if(!isset($data[$requiredProperty]) || is_null($data[$requiredProperty])){
-                throw new Exception("No se ha asignado un valor para la propiedad ".$requiredProperty);
+                throw new Exception("The value for the required property {$requiredProperty} has not been provided for the item");
             }
         }
         if(!isset($data['currency_id'])){
@@ -189,7 +189,7 @@ class MercadoPago {
 
     public function createPreference($accessToken = null) {
         if(sizeof($this->items()) == 0){
-            throw new Exception("No se han asignado items para la preferencia");
+            throw new Exception("There is no items for the preference");
         }
         if(is_null($accessToken)){
             $accessToken = $this->accessToken();
@@ -290,6 +290,7 @@ class MercadoPago {
      * @return MerchantOrder
      */
     public function getMerchantOrderIPN($data) {
+        $merchantOrder = null;
         if($data['topic'] == 'payment'){
             $payment = $this->getPayment($data['id']);
             $merchantOrder = $this->getMerchantOrder($payment->merchantOrderId());
