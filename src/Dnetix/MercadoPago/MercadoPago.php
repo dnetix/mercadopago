@@ -86,6 +86,16 @@ class MercadoPago {
     }
 
     /**
+     * Sets an access token to use
+     * @param string $accessToken
+     * @return $this
+     */
+    public function setAccessToken($accessToken) {
+        $this->accessToken = $accessToken;
+        return $this;
+    }
+
+    /**
      * Obtains an access token from an authorization code
      * @param array $additionalData
      * @return mixed
@@ -149,7 +159,6 @@ class MercadoPago {
     public function addItem($data) {
         $requiredProperties = [
             'title',
-            'description',
             'quantity',
             'unit_price'
         ];
